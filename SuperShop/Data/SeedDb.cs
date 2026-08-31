@@ -1,8 +1,8 @@
-﻿using SuperShop.Data.Entities;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using SuperShop.Data.Entities;
+
 
 namespace SuperShop.Data
 {
@@ -11,7 +11,7 @@ namespace SuperShop.Data
         private readonly DataContext _context;
         private Random _random;
 
-        public SeedDb(DataContext context) 
+        public SeedDb(DataContext context)
         {
             _context = context;
             _random = new Random();
@@ -21,7 +21,7 @@ namespace SuperShop.Data
         {
             await _context.Database.EnsureCreatedAsync();
 
-            if(!_context.Products.Any()) 
+            if (!_context.Products.Any())
             {
                 AddProduct("IPhone X");
                 AddProduct("Magic Mouse");

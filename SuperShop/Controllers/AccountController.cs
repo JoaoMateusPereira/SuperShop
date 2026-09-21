@@ -35,7 +35,7 @@ namespace SuperShop.Controllers
                 var result = await _userHelper.LoginAsync(model);
                 if (result.Succeeded)
                 {
-                    if(this.Request.Query.Keys.Contains("ReturnUrl"))
+                    if (this.Request.Query.Keys.Contains("ReturnUrl"))
                     {
                         return Redirect(this.Request.Query["ReturnUrl"].First());
                     }
@@ -75,7 +75,7 @@ namespace SuperShop.Controllers
                         UserName = model.Username
                     };
                     var result = await _userHelper.AddUserAsync(user, model.Password);
-                    if(result != IdentityResult.Success)
+                    if (result != IdentityResult.Success)
                     {
                         ModelState.AddModelError(string.Empty, "The user couldn't be created.");
                         return View(model);
@@ -88,7 +88,7 @@ namespace SuperShop.Controllers
                         Username = model.Username
                     };
                     var result2 = await _userHelper.LoginAsync(loginViewModel);
-                    if( result2.Succeeded)
+                    if (result2.Succeeded)
                     {
                         return RedirectToAction("Index", "Home");
                     }
@@ -116,7 +116,7 @@ namespace SuperShop.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangeUser(ChangeUserViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var user = await _userHelper.GetUserByEmailAsync(this.User.Identity.Name);
                 if (user != null)
@@ -124,7 +124,7 @@ namespace SuperShop.Controllers
                     user.FirstName = model.FirstName;
                     user.LastName = model.LastName;
                     var response = await _userHelper.UpdateUserAsync(user);
-                    if(response.Succeeded)
+                    if (response.Succeeded)
                     {
                         ViewBag.UserMessage = "User updated!";
                     }
@@ -168,6 +168,11 @@ namespace SuperShop.Controllers
             }
 
             return this.View(model);
+        }
+
+        public IActionResult NotAuthorized()
+        {
+            return View();
         }
     }
 }
